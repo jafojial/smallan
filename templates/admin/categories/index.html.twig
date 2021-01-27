@@ -1,0 +1,68 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Categories
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{% block user_widget %}{% endblock %}
+	{% block dashboard_links %}
+		{{ parent() }}
+	{% endblock %}
+
+	{% block dashboard_content %}
+		<!-- Recently Favorited -->
+		<div class="widget dashboard-container my-adslist">
+			<h3 class="widget-header">Categories management</h3>
+			<a href="{{ path('admin_categories_add') }}" class="btn btn-main-sm">Add category</a>
+			<table class="table table-responsive product-dashboard-table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th class="text-center">Parent</th>
+						<th class="text-center">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for categorie in categories %}
+						<tr>
+							<td class="product-thumb">
+								<span>#</span>
+							</td>
+							<td class="product-details">
+								<span class="title">{{ categorie.name }}</span>
+							</td>
+							<td class="product-category">
+								<span class="categories">{{ categorie.parent }}</span>
+							</td>
+							<td class="action" data-title="Action">
+								<div class="">
+									<ul class="list-inline justify-content-center">
+										<li class="list-inline-item">
+											<a data-toggle="tooltip" data-placement="top" title="Tooltip on top" class="view" href="">
+												<i class="fa fa-eye"></i>
+											</a>
+										</li>
+										<li class="list-inline-item">
+											<a class="edit" href="">
+												<i class="fa fa-pencil"></i>
+											</a>
+										</li>
+										<li class="list-inline-item">
+											<a class="delete" href="">
+												<i class="fa fa-trash"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	{% endblock %}
+
+{% endblock %}

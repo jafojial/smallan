@@ -1,0 +1,53 @@
+{% extends 'users/index.html.twig' %}
+
+{% block title %}Edit profile
+{% endblock %}
+
+{% block flash %}{% endblock %}
+
+{% block content %}
+	<!-- Edit Personal Info -->
+	<div class="widget personal-info">
+		<h3 class="widget-header user">Edit Personal Information</h3>
+
+		{{ form_start(form) }}
+		<!-- Name -->
+		<div class="form-group">
+			<label for="name">Last Name</label>
+			{{ form_widget(form.name, { 'attr': {'class' : 'form-control'}}) }}
+			{# <input type="text" class="form-control" id="name" value="{{ app.user.name }}"> #}
+		</div>
+		<!-- First Name -->
+		<div class="form-group">
+			<label for="firstname">First Name</label>
+			{{ form_widget(form.firstname, { 'attr': {'class' : 'form-control'}}) }}
+			{# <input type="text" class="form-control" id="firstname" value="{{ app.user.firstname }}"> #}
+		</div>
+		<!-- File chooser -->
+		<div class="form-group choose-file">
+			<i class="fa fa-user text-center"></i>
+			<input type="file" class="form-control-file d-inline" id="input-file">
+		</div>
+		<!-- Comunity Name -->
+		<div class="form-group">
+			<label for="comunity-name">Comunity Name</label>
+			<input type="text" class="form-control" id="comunity-name">
+		</div>
+		<!-- Checkbox -->
+		<div class="form-check">
+			<label class="form-check-label" for="hide-profile">
+				<input class="form-check-input" type="checkbox" value="" id="hide-profile">
+				Hide Profile from Public/Comunity
+			</label>
+		</div>
+		<!-- Zip Code -->
+		<div class="form-group">
+			<label for="zip-code">Zip Code</label>
+			<input type="text" class="form-control" id="zip-code">
+		</div>
+		<!-- Submit button -->
+		{{ form_widget(form.Valider, { 'attr': {'class' : 'btn btn-transparent'}}) }}
+		{# <button class="btn btn-transparent">Save My Changes</button> #}
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

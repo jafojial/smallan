@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UsersController!
+{% endblock %}
+
+{% block body %}
+	<!--==================================
+																					    =            User Profile            =
+																					    ===================================-->
+
+	<section class="user-profile section">
+		<div class="container">
+			<div class="row">
+				{% block flash %}
+					{% for message in app.flashes('message') %}
+						<div class="col-xl-12">
+							<div class="alert alert-success">{{ message }}</div>
+						</div>
+					{% endfor %}
+				{% endblock %}
+				<div class="col-md-10 offset-md-1 col-lg-4 offset-lg-0">
+					<div class="sidebar">
+						{% block user_widget %}
+							<!-- User Widget -->
+							<div
+								class="widget user-dashboard-profile">
+								<!-- User Image -->
+								<div class="profile-thumb">
+									<img src="{{ asset ('assets/images/user/user-thumb.jpg')}}" alt="" class="rounded-circle">
+								</div>
+								<!-- User Name -->
+								<h5 class="text-center">{{ app.user.name }}
+									{{ app.user.firstname }}</h5>
+								<p>{{ app.user.email }}</p>
+							</div>
+						{% endblock %}
+						{% block dashboard_links %}
+							<!-- Dashboard Links -->
+							<div class="widget user-dashboard-menu">
+								<ul class="">
+									<li>
+										<a href="{{ path('app_users_profile_edit') }}">
+											<i class="fa fa-user"></i>Edit Profile</a>
+									</li>
+									<li>
+										<a href="{{ path('app_users_password_edit') }}">
+											<i class="fa fa-pencil"></i>Change Password</a>
+									</li>
+									<li>
+										<a href="dashboard-my-ads.html">
+											<i class="fa fa-user"></i>My Ads</a>
+									</li>
+									<li>
+										<a href="dashboard-favourite-ads.html">
+											<i class="fa fa-bookmark-o"></i>Favourite Ads<span>5</span>
+										</a>
+									</li>
+									<li>
+										<a href="dashboard-archived-ads.html">
+											<i class="fa fa-file-archive-o"></i>Archeved Ads<span>12</span>
+										</a>
+									</li>
+									<li>
+										<a href="dashboard-pending-ads.html">
+											<i class="fa fa-bolt"></i>Pending Approval<span>23</span>
+										</a>
+									</li>
+									<li>
+										<a href="logout.html">
+											<i class="fa fa-cog"></i>Logout</a>
+									</li>
+									<li>
+										<a href="delete-account.html">
+											<i class="fa fa-power-off"></i>Delete Account</a>
+									</li>
+								</ul>
+							</div>
+						{% endblock %}
+					</div>
+				</div>
+				<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
+					{% block content %}
+						<!-- Edit Personal Info -->
+						<div class="widget personal-info">
+							<h3 class="widget-header user">Personal Informations</h3>
+							<form
+								action="#">
+								<!-- Name -->
+								<div class="form-group">
+									<label for="name">Last Name</label>
+									<input type="text" class="form-control" disabled id="name" value="{{ app.user.name }}">
+								</div>
+								<!-- First Name -->
+								<div class="form-group">
+									<label for="name">First Name</label>
+									<input type="text" class="form-control" disabled id="name" value="{{ app.user.firstname }}">
+								</div>
+								<!-- Email -->
+								<div class="form-group">
+									<label for="email">Email</label>
+									<input type="email" class="form-control" disabled id="email" value="{{ app.user.email }}">
+								</div>
+								<!-- Submit Button -->
+								<a class="btn btn-transparent" href="{{ path('app_users_profile_edit') }}">Edit Profile</a>
+								<a class="btn btn-transparent" href="{{ path('app_users_password_edit') }}">Change Password</a>
+
+							</form>
+
+						</div>
+						<!-- Announces list -->
+						<div class="widget change-password">
+							<h3 class="widget-header user">Announces</h3>
+							{% for annonce in app.user.annonces %}
+								<p>Titre :
+									{{ annonce.title }}</p>
+							{% endfor %}
+						</div>
+						<!-- Change Email Address -->
+						{# <div class="widget change-email mb-0">
+																		                            <h3 class="widget-header user">Edit Email Address</h3>
+																		                            <form
+																		                                action="#">
+																		                                <!-- Current Password -->
+																		                                <div class="form-group">
+																		                                    <label for="current-email">Current Email</label>
+																		                                    <input type="email" class="form-control" id="current-email">
+																		                                </div>
+																		                                <!-- New email -->
+																		                                <div class="form-group">
+																		                                    <label for="new-email">New email</label>
+																		                                    <input type="email" class="form-control" id="new-email">
+																		                                </div>
+																		                                <!-- Submit Button -->
+																		                                <button class="btn btn-transparent">Change email</button>
+																		                            </form>
+																		                        </div> #}
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

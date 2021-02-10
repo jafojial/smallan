@@ -58,9 +58,15 @@ class Users implements UserInterface
      */
     private $firstname;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Annonces::class, mappedBy="favories")
+     */
+    private $favories;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
+        $this->favories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -203,6 +209,33 @@ class Users implements UserInterface
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Annonces[]
+     */
+    public function getFavories(): Collection
+    {
+        return $this->favories;
+    }
+
+    public function addFavory(Annonces $favory): self
+    {
+        if (!$this->favories->contains($favory)) {
+            $this->favories[] = $favory;
+            $favory->addFavory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavory(Annonces $favory): self
+    {
+        if ($this->favories->removeElement($favory)) {
+            $favory->removeFavory($this);
+        }
 
         return $this;
     }

@@ -1,0 +1,128 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Announces
+{% endblock %}
+
+{% block page_title %}
+	<h1 class="text-center align-center">Announces administration</h1>
+{% endblock %}
+
+{% block user_widget %}{% endblock %}
+{# {% block dashboard_links %}{% endblock %} #}
+
+{% block dashboard_content %}
+	<!-- Recently Favorited -->
+	<div class="widget dashboard-container my-adslist">
+		<h3 class="widget-header">Announces management</h3>
+		<p>
+			<a href="{{ path('admin_annonces_add') }}" class="btn btn-main-sm">Add announce</a>
+		</p>
+		<table class="table table-responsive product-dashboard-table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Title</th>
+					<th>Date</th>
+					<th class="text-center">Active</th>
+					<th class="text-center">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for annonce in annonces %}
+					<tr>
+						<td class="product-thumb">
+							<span>{{ annonce.id }}</span>
+						</td>
+						<td class="product-details">
+							<span class="title">{{ annonce.title }}</span>
+						</td>
+						<td class="product-category">
+							<span class="categories">{{ annonce.createdAt|date }}</span>
+						</td>
+						<td
+							class="product-category">
+							{# <span class="">{{ annonce.active }}</span> #}
+							<input type="checkbox" {{ (annonce.active) ? 'checked' : '' }} data-id="{{ annonce.id }}">
+						</td>
+						<td class="action" data-title="Action">
+							<div class="">
+								<ul class="list-inline justify-content-center">
+									<li class="list-inline-item">
+										<a data-toggle="tooltip" data-placement="top" title="Tooltip on top" class="view" href="">
+											<i class="fa fa-eye"></i>
+										</a>
+									</li>
+									<li class="list-inline-item">
+										<a class="edit" href="{{ path('admin_annonces_edit', {id: annonce.id}) }}" disable>
+											<i class="fa fa-pencil"></i>
+										</a>
+									</li>
+									<li class="list-inline-item">
+										<a class="delete" href="" data-toggle="modal" data-target="#delModal" data-id="{{ annonce.id }}" data-title="{{ annonce.title }}">
+											<i class="fa fa-trash"></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<!-- Modal -->
+		<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="delModalLabel">Delete an announce</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<a class="view" href="" type="button" class="btn btn-primary">Confirm</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block javascripts2 %}
+	<script>
+		window.onload = () => {
+let activate = document.querySelectorAll("[type=checkbox]")
+for (let btn of activate) {
+btn.addEventListener("click", function () {
+let xmlHttp = new XMLHttpRequest;
+
+xmlHttp.open("get", `/admin/announces/activate/${
+this.dataset.id
+}`)
+
+xmlHttp.send()
+
+})
+
+}
+
+let deleteAnnounce = document.querySelectorAll(".delete")
+for (let btn of deleteAnnounce) {
+btn.addEventListener("click", function () {
+document.querySelector(".modal-footer a").href = `/admin/announces/delete/${
+this.dataset.id
+}`
+document.querySelector(".modal-body").innerText = `Are you sure you want to delete the announce "${
+this.dataset.title
+}"?`
+
+})
+
+}
+}
+	</script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Add a announce
+{% endblock %}
+{% block page_title %}
+	<h1 class="text-center align-center">Announces management</h1>
+{% endblock %}
+
+{% block user_widget %}{% endblock %}
+
+{% block dashboard_content %}
+	<div class="widget personal-info">
+		<h3 class="widget-header user">Add a announce</h3>
+
+		{{ form_start(form) }}
+		<div class="form-group">
+			<label for="name">Title</label>
+			{{ form_widget(form.title, { 'attr': {'class' : 'form-control'}}) }}
+		</div>
+		<div class="form-group">
+			<label for="name">Content</label>
+			{{ form_widget(form.content, { 'attr': {'class' : 'form-control'}}) }}
+		</div>
+		<div class="form-group">
+			<label for="parent">Categories</label>
+			{{ form_widget(form.categories, { 'attr': {'class' : 'form-control'}}) }}
+		</div>
+		{{ form_widget(form.Valider, { 'attr': {'class' : 'btn btn-transparent'}}) }}
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

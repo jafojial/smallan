@@ -31,15 +31,37 @@ class CategoriesController extends AbstractController
      */
     public function addCategorie(Request $request)
     {
-        $categorie = new Categories;
+        $category = new Categories;
 
-        $form = $this->createForm(CategoriesType::class, $categorie);
+        $form = $this->createForm(CategoriesType::class, $category);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($categorie);
+            $em->persist($category);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_categories_home');
+        }
+
+        return $this->render('admin/categories/add.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="edit")
+     */
+    public function editCategorie(Categories $category, Request $request)
+    {
+        $form = $this->createForm(CategoriesType::class, $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
             $em->flush();
 
             return $this->redirectToRoute('admin_categories_home');

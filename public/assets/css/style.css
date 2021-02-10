@@ -124,6 +124,12 @@ label {
   color: #666;
 }
 
+.navbar-toggler{
+  background: url("../images/nav-toogle-icon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 ul.pagination li {
   margin-right: 10px;
 }
